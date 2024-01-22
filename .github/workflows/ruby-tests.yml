@@ -1,0 +1,81 @@
+---
+name: ruby-tests
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+    inputs: {}
+
+jobs:
+  build:
+    name: Tests with Ruby v${{ matrix.ruby }}
+    runs-on: "ubuntu-latest"
+    strategy:
+      fail-fast: true
+      matrix:
+        ruby: ["3.3.0"]
+
+    services:
+      postgres:
+        image: postgres:15
+        ports: ["5432:5432"]
+        env:
+          POSTGRES_PASSWORD: postgres
+        options:
+          --health-cmd pg_isready --health-interval 10s --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Install PostgreSQL client
+        env:
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPASSWORD: postgres
+        run: |
+          sudo apt install -yqq libpq-dev
+          psql -U postgres -c "create database test"
+
+      - uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
+        with:
+          path: vendor/bundle
+          key: >
+            ${{ runner.os }}-${{ matrix.ruby }}-gems-${{
+            hashFiles('Gemfile.lock') }}
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+
+      - name: Ruby version
+        run: ruby -v
+
+      - name: Install gem dependencies
+        run: |
+          gem install bundler
+          bundle config path vendor/bundle
+          bundle update --jobs 4 --retry 3
+
+      - name: Run tests
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres:///test
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPASSWORD: postgres
+        run: |
+          bundle exec rails db:migrate
+          bundle exec rspec --fail-fast
+
+      - name: Run lint
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres:///test
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPASSWORD: postgres
+        run: |
+          bundle exec rubocop
