@@ -1,0 +1,13 @@
+inherit_gem:
+  rubocop-fnando: .rubocop-rails.yml
+
+AllCops:
+  TargetRubyVersion: 3.3
+  TargetRailsVersion: 7.1
+  NewCops: enable
+
+Metrics:
+  Enabled: false
+Layout/LineLength:
+  Enabled: true
+  Max: 120
