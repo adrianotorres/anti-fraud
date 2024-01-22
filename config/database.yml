@@ -1,0 +1,8 @@
+default: &default
+  DATABASE_URL: <%= AntiFraud::Config.database_url %>
+development:
+  <<: *default
+test:
+  <<: *default
+production:
+  <<: *default
