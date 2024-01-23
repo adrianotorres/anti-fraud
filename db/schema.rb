@@ -30,6 +30,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_015659) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.enum "recommendation", null: false, enum_type: "recommendation"
+    t.index ["user_id", "date"], name: "index_transactions_on_user_id_and_date"
+    t.index ["user_id", "has_cbk"], name: "index_transactions_on_user_id_and_has_cbk"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
 end
