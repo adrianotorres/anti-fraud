@@ -22,5 +22,12 @@ module Transaction
         .group(criteria.keys)
         .having("COUNT(*) >= ?", quantity)
     end
+
+    def period_average(start_date:, end_date:, criteria:)
+      Record
+        .where(criteria)
+        .where("date BETWEEN ? AND ?", start_date, end_date)
+        .average(:amount)
+    end
   end
 end

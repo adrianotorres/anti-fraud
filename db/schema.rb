@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_23_015659) do
     t.integer "user_id", null: false
     t.string "card_number", null: false
     t.datetime "date", null: false
-    t.string "amount", null: false
+    t.integer "amount", null: false
     t.integer "device_id"
     t.boolean "has_cbk", default: false, null: false
     t.datetime "created_at", null: false

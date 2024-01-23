@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Transaction
-  class Recommendation
+  module Recommendation
     APPROVE = :approve
     DENY = :deny
     ALL = [APPROVE, DENY].freeze

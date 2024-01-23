@@ -15,16 +15,7 @@ module Transaction
     end
 
     private def calc_recommendation
-      @recommendation = if repository.consecutive(
-        quantity: AntiFraud::Config.consecutive_quantity,
-        start_date: date - AntiFraud::Config.consecutive_time.minutes,
-        end_date: date + AntiFraud::Config.consecutive_time.minutes,
-        criteria: {user_id:}
-      ).exists?
-                          Recommendation::DENY
-                        else
-                          Recommendation::APPROVE
-                        end
+      @recommendation = Recommendation::Approver.call(user_id:, date:, amount: amount.to_f)
 
       Success(:calculated_recommendation)
     end
