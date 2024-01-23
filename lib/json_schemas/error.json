@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "required": ["error"],
+  "properties": {
+    "error": {
+      "type": "object",
+      "required": [
+        "code",
+	"message",
+	"detail",
+	"timestamp"
+      ],
+      "properties": {
+        "code": { "type": "integer" },
+	"message": { "type": "string"  },
+	"detail": { "type": "array" },
+	"timestamp": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

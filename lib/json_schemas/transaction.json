@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "required": [
+    "transaction_id",
+    "merchant_id",
+    "user_id",
+    "card_number",
+    "transaction_date",
+    "transaction_amount"
+  ],
+  "properties": {
+    "transaction_id": { "type": "string" },
+    "merchant_id": { "type": "string" },
+    "user_id": { "type": "string" },
+    "card_number": { "type": "string" },
+    "transaction_date": { "type": "string", "format": "date-time" },
+    "transaction_amount": { "type": "string" },
+    "device_id": { "type": "string" },
+    "has_cbk": { "type": "boolean" }
+  }
+}
