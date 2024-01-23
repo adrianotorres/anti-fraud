@@ -29,5 +29,9 @@ module Transaction
         .where("date BETWEEN ? AND ?", start_date, end_date)
         .average(:amount)
     end
+
+    def chargeback_for?(user_id:)
+      Record.exists?(has_cbk: true, user_id:)
+    end
   end
 end

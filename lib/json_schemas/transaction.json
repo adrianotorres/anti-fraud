@@ -16,6 +16,6 @@
     "transaction_date": { "type": "string", "format": "date-time" },
     "transaction_amount": { "type": "string" },
     "device_id": { "type": "string" },
-    "has_cbk": { "type": "boolean" }
+    "has_cbk": { "type": "string" }
   }
 }
