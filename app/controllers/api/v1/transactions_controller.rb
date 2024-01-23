@@ -12,7 +12,13 @@ module Api
             date: transaction_params[:transaction_date],
             amount: transaction_params[:transaction_amount],
             **transaction_params
-          ).on_success { render :json, status: :created }
+          )
+          .on_success do |result|
+            render json: {
+              transaction_id: result.data[:transaction].external_id,
+              recommendation: result.data[:transaction].recommendation
+            }, status: :created
+          end
           .on_failure(:validation_errors) do |result|
             render_error message: "Unprocessable entity", detail: result[:errors]
           end

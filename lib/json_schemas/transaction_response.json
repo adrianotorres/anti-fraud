@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "required": [
+    "transaction_id",
+    "recommendation"
+  ],
+  "properties": {
+    "transaction_id": { "type": "integer" },
+    "recommendation": { "type": "string" }
+  }
+}

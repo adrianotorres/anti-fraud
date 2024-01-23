@@ -55,8 +55,8 @@ RSpec.describe "Transactions", type: :request do
             transaction_amount: "302.02"
           }
         }
-        
-        json_response = JSON.parse(response.body)
+
+        json_response = response.parsed_body
         expect(json_response["error"].present?).to be_truthy
         expect(json_response["error"]["code"]).to eq(422)
         expect(json_response["error"]["detail"]["merchant_id"]).to eq("can't be blank")

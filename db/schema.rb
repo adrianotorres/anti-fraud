@@ -10,9 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_22_212121) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_23_015659) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "recommendation", ["deny", "approve"]
 
   create_table "transactions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "external_id", null: false
@@ -25,6 +29,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_22_212121) do
     t.boolean "has_cbk", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.enum "recommendation", null: false, enum_type: "recommendation"
   end
 
 end

@@ -11,3 +11,5 @@ Metrics:
 Layout/LineLength:
   Enabled: true
   Max: 120
+Style/MultilineBlockChain:
+  Enabled: false
