@@ -75,4 +75,4 @@ provision:
   # see https://github.com/docker/compose/issues/9426
   - dip compose down --volumes || true
   - dip compose up -d postgres
-  - dip bundle install
+  - dip bash -c bin/setupl
