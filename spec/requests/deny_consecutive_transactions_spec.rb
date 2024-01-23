@@ -5,8 +5,10 @@ require "rails_helper"
 RSpec.describe "Deny consecutive transactions", type: :request do
   describe "POST /transactions" do
     it "denies if user is trying too many transactions in a row" do
+      user = create_user
+
       [28, 15, 3].each do |variant|
-        post "/api/v1/transactions", params: {
+        post "/api/v1/transactions", headers: authenticated_header(user:), params: {
           transaction: {
             transaction_id: variant,
             merchant_id: 2,
@@ -23,8 +25,10 @@ RSpec.describe "Deny consecutive transactions", type: :request do
     end
 
     it "doesn't deny if transactions have an interval of 1h+" do
+      user = create_user
+
       [60, 90, 120].each do |variant|
-        post "/api/v1/transactions", params: {
+        post "/api/v1/transactions", headers: authenticated_header(user:), params: {
           transaction: {
             transaction_id: variant,
             merchant_id: 2,

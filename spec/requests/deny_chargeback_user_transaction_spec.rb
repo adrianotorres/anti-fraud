@@ -5,8 +5,10 @@ require "rails_helper"
 RSpec.describe "Deny transaction of chargeback users", type: :request do
   describe "POST /transactions" do
     it "denies if user has chargebak" do
+      user = create_user
+
       [true, false].each do |has_cbk|
-        post "/api/v1/transactions", params: {
+        post "/api/v1/transactions", headers: authenticated_header(user:), params: {
           transaction: {
             transaction_id: 1,
             merchant_id: 2,

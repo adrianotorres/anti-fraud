@@ -79,6 +79,7 @@ GEM
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
     base64 (0.2.0)
+    bcrypt (3.1.20)
     bigdecimal (3.1.6)
     bootsnap (1.17.1)
       msgpack (~> 1.2)
@@ -110,6 +111,7 @@ GEM
     json_matchers (0.11.1)
       json_schema
     json_schema (0.21.0)
+    jwt (2.7.1)
     kind (5.10.0)
     language_server-protocol (3.17.0.3)
     loofah (2.22.0)
@@ -283,11 +285,13 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  bcrypt (~> 3.1.7)
   bootsnap
   debug
   dotenv
   json-schema
   json_matchers
+  jwt
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.1.3)

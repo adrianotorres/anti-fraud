@@ -20,7 +20,7 @@ module Api
             }, status: :created
           end
           .on_failure(:validation_errors) do |result|
-            render_error message: "Unprocessable entity", detail: result[:errors]
+            render_error message: "Unprocessable entity", detail: result[:errors], status: :unprocessable_entity
           end
       end
 
@@ -28,7 +28,7 @@ module Api
         validation_result = JSON::Validator.fully_validate(schema, {transaction: transaction_params}.to_json)
         return unless validation_result.any?
 
-        render_error message: "Invalid transaction structure", detail: validation_result
+        render_error message: "Invalid transaction structure", detail: validation_result, status: :unprocessable_entity
       end
 
       private def schema
@@ -50,17 +50,6 @@ module Api
           :card_number, :transaction_date, :transaction_amount,
           :device_id, :has_cbk
         )
-      end
-
-      private def render_error(message:, detail:)
-        render json: {
-          error: {
-            code: 422,
-            message:,
-            detail:,
-            timestamp: Time.zone.now
-          }
-        }, status: :unprocessable_entity
       end
     end
   end

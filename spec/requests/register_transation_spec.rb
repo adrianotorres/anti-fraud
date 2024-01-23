@@ -4,9 +4,12 @@ require "rails_helper"
 
 RSpec.describe "Transactions", type: :request do
   describe "POST /transactions" do
+    let(:user) { create_user }
+    let(:headers) { authenticated_header(user:) }
+
     context "with valid parameters" do
       it "returns created status" do
-        post "/api/v1/transactions", params: {
+        post "/api/v1/transactions", headers:, params: {
           transaction: {
             transaction_id: 1,
             merchant_id: 2,
@@ -22,7 +25,7 @@ RSpec.describe "Transactions", type: :request do
 
       it "saves transaction on database" do
         expect do
-          post "/api/v1/transactions", params: {
+          post "/api/v1/transactions", headers:, params: {
             transaction: {
               transaction_id: 1,
               merchant_id: 2,
@@ -38,14 +41,14 @@ RSpec.describe "Transactions", type: :request do
 
     context "with invalid parameters" do
       it "returns error response" do
-        post "/api/v1/transactions", params: {transaction: {transaction_id: 123}}
+        post "/api/v1/transactions", headers:, params: {transaction: {transaction_id: 123}}
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response).to match_json_schema("error")
       end
 
       it "returns blank field error message" do
-        post "/api/v1/transactions", params: {
+        post "/api/v1/transactions", headers:, params: {
           transaction: {
             transaction_id: 1,
             merchant_id: "",
