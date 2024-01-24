@@ -92,3 +92,52 @@ These commands will install the required dependencies and set up the project for
 -   Visit the Dip gem website for more information on the Docker orchestration process.
 
 By following these installation steps, you can set up the project easily and start the development process with the recommended tools and configurations.
+
+### Using the Api
+**Versioning**
+Every endpoint is preceded by `api/version`, allowing for seamless version control.
+
+1. **Login and Obtain JWT Token:**
+   - Endpoint: `POST /api/v1/auth/login`
+   - Payload:
+     ```json
+     {
+       "type": "object",
+       "required": ["email", "password"],
+       "properties": {
+         "email": { "type": "string" },
+         "password": { "type": "string" }
+       }
+     }
+     ```
+   - Upon successful login, you'll receive a JWT token.
+
+2. **Submit Transaction:**
+   - Endpoint: `POST /api/v1/transactions`
+   - Authorization: Bearer Token
+   - Payload:
+     ```json
+     {
+       "type": "object",
+       "required": [
+         "transaction_id",
+         "merchant_id",
+         "user_id",
+         "card_number",
+         "transaction_date",
+         "transaction_amount"
+       ],
+       "properties": {
+         "transaction_id": { "type": "string" },
+         "merchant_id": { "type": "string" },
+         "user_id": { "type": "string" },
+         "card_number": { "type": "string" },
+         "transaction_date": { "type": "string", "format": "date-time" },
+         "transaction_amount": { "type": "string" },
+         "device_id": { "type": "string" },
+         "has_cbk": { "type": "string" }
+       }
+     }
+     ```
+   - Ensure to include the obtained JWT token in the Authorization header.
+
