@@ -28,8 +28,9 @@ R3.  **Chargeback History Check:**
  ### Code Archtecture
 
 > Testing
-This project follows a Test-Driven Development (TDD) methodology to ensure robustness, reliability, and maintainability in the development process. The TDD approach involves writing tests before implementing the actual functionality, enabling a systematic and iterative development cycle. The project specifically employs TDD for API endpoint development, with a focus on request tests driven by each use case.
-This project uses simplecov for coverage, so you can check the coverage after running tests
+> This project follows a Test-Driven Development (TDD) methodology to ensure robustness, reliability, and maintainability in the development process.
+> The TDD approach involves writing tests before implementing the actual functionality, enabling a systematic and iterative development cycle. The project specifically employs TDD for API endpoint development, with a focus on request tests driven by each use case.
+> This project uses simplecov for coverage, so you can check the coverage after running tests
 
 > BCDD
 This project embraces a Business Component-Driven Development (BCDD) methodology to structure and organize the logic of business components within the application. BCDD emphasizes encapsulating all business logic within dedicated resources, promoting maintainability, clarity, and a clear separation of responsibilities.
@@ -42,18 +43,35 @@ This project embraces a Business Component-Driven Development (BCDD) methodology
 ### Instalation
 For an optimal development experience, it is recommended to use Docker. The project offers a Docker orchestration process that streamlines development. Additional details can be found on the Dip gem website.
 
-**Using Docker:**
+1. Config envs
+```bash
+cp .env.example .env.development
+cp .env.example .env.development
+```
 
-1.  Ensure Docker is installed on your system.
-2.  Run the Docker orchestration process to set up the development environment.
+**Using Docker:**
+2. Ensure Docker is installed on your system.
+3. Run the Docker orchestration process to set up the development environment.
 ```bash
 dip provision
-``` 
-
-3.  Access the project's Docker container for development tasks.
+```
+4. Access the project's Docker container for development tasks.
 ```bash
 dip bash
-``` 
+```
+5. Run the tests.
+```bash
+dip test
+```
+5. Run code lint
+```bash
+dip rubocop
+```
+6. Run api
+```bash
+dip rails s
+```
+
 
 **Without Docker:**
 
